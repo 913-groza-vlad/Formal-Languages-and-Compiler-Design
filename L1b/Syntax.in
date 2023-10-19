@@ -1,0 +1,29 @@
+sintactical rules: 
+(tokens are specified between " and ")
+
+program = "{" cmpdstmt "}"
+declaration_stmt = decllist | constlist
+decllist = "def" declaration {";" declaration}
+declaration = id_declaration | array_declaration
+id_declaration = IDENTIFIER ":" type
+array_declaration = IDENTIFIER "[" nr "]" ":" "Array" "(" type ")"
+type = "int" | "string"
+constlist = "const" const_declaration {";" const_declaration}
+const_declaration = IDENTIFIER "<-" intconstant | stringconstant
+cmpdstmt = { stmt }
+expression = int_expression | string_expression
+int_expression = int_constant | identifier | int_expression ("+"|"-"|"*"|"/") int_expression | "(" int_expression ("+"|"-"|"*"|"/") int_expression ")"
+string_expression = string_constant | identifier | string_expression + string_expression
+stmt = (declaration_stmt "~") | (simplestmt "~") | structstmt
+simplestmt = assignstmt | iostmt | cmpdassignstmt
+assignstmt = IDENTIFIER "<-" expression
+cmpdassignstmt = IDENTIFIER "=" ("+"|"-"|"*"|"/") expression
+iostmt = readstmt | writestmt
+readstmt = IDENTIFIER "<-" "input" "(" ")"
+writestmt = IDENTIFIER "->" "out" "(" ")"
+ifstmt = "whether" "(" condition ")" ["\"] stmt ["/"] ["otherwise" stmt]
+whilestmt = "whileLoop" "(" condition ")" ["\"] stmt ["/"]
+forstmt = "forLoop" "(" [assignstmt] ";" [codition] ";" [assignstmt | cmpdassignstmt] ")" ["\"] stmt ["/"]
+condition = expression RELATION expression
+RELATION = "<<" | "<<=" | "==" | "!!" | ">>=" | ">>"
+
