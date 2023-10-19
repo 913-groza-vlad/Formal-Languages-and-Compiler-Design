@@ -1,0 +1,16 @@
+// compute the maximum of 3 numbers
+
+{
+
+def a : int ; b: int ; c : int~
+a <- input()~
+b <- input()~
+c <- input()~
+whether (a >> b and a >> c)
+  a -> out()~
+otherwise whether (b >> a and b >> c)
+  b -> out()~
+otherwise
+  c -> out()~
+
+}
