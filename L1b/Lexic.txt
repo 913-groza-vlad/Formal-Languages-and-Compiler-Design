@@ -4,7 +4,7 @@ Alphabet:
 
 Lexic:
   - special symbols: 
-    - operators: + - * / <- -> >> << == !! >>= <<= =+ =- =* =/ . ` and or
+    - operators: + - * / <- -> >> << == !! >>= <<= =+ =- =* =/ . and or
     - separators: \ / ~ ; : space ( ) { } [ ]
     - reserved words: def int string whether otherwise Array whileLoop forLoop const input out
   - identifiers: a sequence of letters and digits, it must start with a letter
