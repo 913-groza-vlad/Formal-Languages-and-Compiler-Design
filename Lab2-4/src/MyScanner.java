@@ -119,7 +119,7 @@ public class MyScanner {
                 i += operator.length() - 1;
             }
             else if (line.charAt(i) == '-') {
-                String minusToken = identifyNegativeNrToken(line, i, tokens);
+                String minusToken = identifyNegativeNrToken(line, i);
                 tokens.add(minusToken);
                 i += minusToken.length() - 1;
             }
@@ -175,7 +175,7 @@ public class MyScanner {
         return stringConstant.toString();
     }
 
-    public String identifyNegativeNrToken(String line, int position, List<String> tokens) {
+    public String identifyNegativeNrToken(String line, int position) {
         if (position < line.length() - 1 && Character.isDigit(line.charAt(position + 1))) {
             StringBuilder token = new StringBuilder();
             token.append('-');

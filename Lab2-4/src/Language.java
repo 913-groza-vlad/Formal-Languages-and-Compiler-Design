@@ -7,11 +7,8 @@ public class Language {
     private List<String> separators = Arrays.asList("\\", "/", "~", ";", ":", " ", "(", ")", "{", "}", "[", "]");
     private List<String> operators = Arrays.asList("+", "-", "*", "/", "<-", "->", ">>", "<<", "==", "!!", ">>=", "<<=", "=+", "=-", "=*", "=/", ".", "and", "or");
 
-    private HashMap<String, Integer> codes;
 
-    public Language() {
-        codes = new HashMap<>();
-    }
+    public Language() {}
 
     public boolean isReservedWord(String word) {
         return reservedWords.contains(word);
