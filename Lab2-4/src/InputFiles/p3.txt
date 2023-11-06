@@ -1,0 +1,18 @@
+// compute the sum of n numbers
+
+{
+
+def sum <- 0~
+def n : int~
+n <- input()~
+def arr[n] : Array(int); 
+forLoop (def i <- 0; i << n; i =+ 1) \
+  arr[i] <- input()~
+/
+
+forLoop (def i <- 0; i << n; i =+ 1)
+  sum <- sum + arr[i]~
+
+sum -> out()~
+
+}
