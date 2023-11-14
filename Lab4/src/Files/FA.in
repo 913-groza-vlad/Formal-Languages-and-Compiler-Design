@@ -1,0 +1,12 @@
+p q r s
+0 1 2
+p
+q r
+p 0 q
+p 1 r
+p 2 p
+q 0 q
+q 1 p
+r 0 s
+r 2 q
+s 2 p
