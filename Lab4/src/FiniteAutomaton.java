@@ -128,6 +128,6 @@ public class FiniteAutomaton {
 
     @Override
     public String toString() {
-        return "FA = {\n" + statesToString(states, "States") + ",\n" + alphabetToString() + ",\n" + transitionsToString() + "\nInitial state: " + initialState + ",\n" + statesToString(finalStates, "Final states") + "\n}";
+        return "FA = {\n" + statesToString(states, "States") + ",\n" + alphabetToString() + ",\n" + transitionsToString() + "Initial state: " + initialState + ",\n" + statesToString(finalStates, "Final states") + "\n}";
     }
 }
