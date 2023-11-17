@@ -36,7 +36,7 @@ public class Main {
                         System.out.print("Enter a sequence: ");
                         Scanner scanner1 = new Scanner(System.in);
                         String sequence = scanner1.nextLine();
-                        if (fa.checkSequence(sequence))
+                        if (fa.isSequenceAccepted(sequence))
                             System.out.println("Sequence is accepted by the FA");
                         else
                             System.out.println("Sequence is not accepted by the FA");

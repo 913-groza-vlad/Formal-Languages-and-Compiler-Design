@@ -90,7 +90,7 @@ public class FiniteAutomaton {
         return transitionsString.toString();
     }
 
-    public boolean checkSequence(String sequence) {
+    public boolean isSequenceAccepted(String sequence) {
         if (sequence.isEmpty()) {
             return finalStates.contains(initialState);
         }
