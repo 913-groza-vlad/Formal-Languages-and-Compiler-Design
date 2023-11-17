@@ -80,10 +80,10 @@ public class FiniteAutomaton {
         StringBuilder transitionsString = new StringBuilder();
         transitionsString.append("Transitions:\n");
         transitions.forEach((key, value) -> {
-            transitionsString.append("(").append(key.getKey()).append(", ").append(key.getValue()).append(")").append(" -> ").append(value);
-//            for (String state : value) {
-//                transitionsString.append(state).append(" ");
-//            }
+            transitionsString.append("(").append(key.getKey()).append(", ").append(key.getValue()).append(")").append(" -> ");
+            for (String state : value) {
+                transitionsString.append(state).append(" ");
+            }
             transitionsString.append("\n");
         });
 
@@ -128,6 +128,6 @@ public class FiniteAutomaton {
 
     @Override
     public String toString() {
-        return "FA = {" + statesToString(states, "States") + ", " + alphabetToString() + ", " + transitionsToString() + ", Initial state: " + initialState + ", " + statesToString(finalStates, "Final states") + "}";
+        return "FA = {\n" + statesToString(states, "States") + ",\n" + alphabetToString() + ",\n" + transitionsToString() + "\nInitial state: " + initialState + ",\n" + statesToString(finalStates, "Final states") + "\n}";
     }
 }
