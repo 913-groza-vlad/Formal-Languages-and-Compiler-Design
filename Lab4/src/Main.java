@@ -11,9 +11,25 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        System.out.println("Program 1");
+        MyScanner program1Scanner = new MyScanner("src/Files/p1.txt", "src/OutputFiles/PIF1.txt", "src/OutputFiles/ST1.txt");
+        program1Scanner.scan();
+
+        System.out.println("\nProgram 2");
+        MyScanner program2Scanner = new MyScanner("src/Files/p2.txt", "src/OutputFiles/PIF2.txt", "src/OutputFiles/ST2.txt");
+        program2Scanner.scan();
+
+        System.out.println("\nProgram 3");
+        MyScanner program3Scanner = new MyScanner("src/Files/p3.txt", "src/OutputFiles/PIF3.txt", "src/OutputFiles/ST3.txt");
+        program3Scanner.scan();
+
+        System.out.println("\nProgram with errors");
+        MyScanner errors_scanner = new MyScanner("src/Files/p1err.txt", "src/OutputFiles/PIFerr.txt", "src/OutputFiles/STerr.txt");
+        errors_scanner.scan();
+
         FiniteAutomaton fa = new FiniteAutomaton("src/Files/FA.in");
         fa.readFAFromFile();
-        System.out.println("FA was read from file\n" + fa);
+        System.out.println("\nFA was read from file\n" + fa);
 
         printMenu();
         Scanner scanner = new Scanner(System.in);
