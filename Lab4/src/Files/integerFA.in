@@ -3,6 +3,7 @@ p q r s
 p
 r s
 p 0 s
+p - q
 p 1 r
 p 2 r
 p 3 r
@@ -12,7 +13,6 @@ p 6 r
 p 7 r
 p 8 r
 p 9 r
-p - q
 q 1 r
 q 2 r
 q 3 r
