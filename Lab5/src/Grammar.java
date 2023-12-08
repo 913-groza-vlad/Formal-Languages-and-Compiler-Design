@@ -68,7 +68,7 @@ public class Grammar {
 
                     // Add the right side to the set of productions for the left side
                     for (String prod : rightHandSide) {
-                        String[] prodElements = prod.strip().split("\\s+");
+                        String[] prodElements = prod.strip().split(" ");
                         productions.get(leftHandSide).add(List.of(prodElements));
                     }
                 }
