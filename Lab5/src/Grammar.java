@@ -149,6 +149,14 @@ public class Grammar {
         return nonTerminals;
     }
 
+    public Set<String> getTerminals() {
+        return terminals;
+    }
+
+    public HashMap<String, Set<List<String>>> getProductions() {
+        return productions;
+    }
+
     public boolean checkCFG() {
         boolean startingSymbolInProductions = false;
         for (String entry : productions.keySet()) {
@@ -177,6 +185,10 @@ public class Grammar {
         }
 
         return true;
+    }
+
+    public Set<List<String>> getProductionsForNonTerminal(String nonTerminal) {
+        return productions.get(nonTerminal);
     }
 
     @Override

@@ -1,12 +1,24 @@
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class Main {
     public static void main(String[] args) {
         Grammar grammar = new Grammar("src/Files/g1.txt");
         grammar.readGrammarFromFile();
+        Parser parser1 = new Parser(grammar);
+
+//        System.out.println(parser1.concatOfLengthOne(new HashSet<>(Arrays.asList("aa", "ab", "ba")), new HashSet<>(Arrays.asList("00", "01"))));
+//        System.out.println(parser1.concatOfLengthOne(new HashSet<>(Arrays.asList("a", "epsilon")), new HashSet<>(Arrays.asList("0", "1"))));
 
         System.out.println("Grammar = (\n" + grammar + ")\n");
 
-        if (grammar.checkCFG())
+        if (grammar.checkCFG()) {
             System.out.println("Grammar is CFG\n");
+            parser1.computeFirst();
+            parser1.computeFollow();
+            System.out.println(parser1.firstToString());
+            System.out.println(parser1.followToString());
+        }
         else
             System.out.println("Grammar is not CFG\n");
 
@@ -21,11 +33,17 @@ public class Main {
 
         Grammar grammar2 = new Grammar("src/Files/g2.txt");
         grammar2.readGrammarFromFile();
+        Parser parser2 = new Parser(grammar2);
 
         System.out.println("Grammar = (\n" + grammar2 + ")\n");
 
-        if (grammar2.checkCFG())
+        if (grammar2.checkCFG()) {
             System.out.println("Grammar2 is CFG\n");
+            parser2.computeFirst();
+            parser2.computeFollow();
+            System.out.println(parser2.firstToString());
+            System.out.println(parser2.followToString());
+        }
         else
             System.out.println("Grammar2 is not CFG\n");
     }
