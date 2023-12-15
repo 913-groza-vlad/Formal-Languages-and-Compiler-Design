@@ -7,9 +7,6 @@ public class Main {
         grammar.readGrammarFromFile();
         Parser parser1 = new Parser(grammar);
 
-//        System.out.println(parser1.concatOfLengthOne(new HashSet<>(Arrays.asList("aa", "ab", "ba")), new HashSet<>(Arrays.asList("00", "01"))));
-//        System.out.println(parser1.concatOfLengthOne(new HashSet<>(Arrays.asList("a", "epsilon")), new HashSet<>(Arrays.asList("0", "1"))));
-
         System.out.println("Grammar = (\n" + grammar + ")\n");
 
         if (grammar.checkCFG()) {
