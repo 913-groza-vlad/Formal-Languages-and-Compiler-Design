@@ -231,23 +231,15 @@ public class Parser {
                     if (parseTable.get(new Pair<>(nonTerminal, firstSymbol)).getFirst().equals("err"))
                         parseTable.put(new Pair<>(nonTerminal, firstSymbol), new Pair<>(String.join(" ", production), rhsOfProductions.indexOf(production) + 1));
                     else {
-                        try {
-                            throw new Exception("CONFLICT in the cell: " + nonTerminal + "," + firstSymbol);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        handleConflict(nonTerminal, firstSymbol);
                     }
                 else if (grammar.getNonTerminals().contains(firstSymbol)) {
                     if (production.size() == 1)
                         for (String symbol : first.get(firstSymbol))
                             if (parseTable.get(new Pair<>(nonTerminal, symbol)).getFirst().equals("err"))
-                                parseTable.put(new Pair<>(nonTerminal, symbol), new Pair<>(String.join(" ", production),rhsOfProductions.indexOf(production)+1));
+                                parseTable.put(new Pair<>(nonTerminal, symbol), new Pair<>(String.join(" ", production),rhsOfProductions.indexOf(production) + 1));
                             else {
-                                try {
-                                    throw new Exception("CONFLICT in the cell: " + nonTerminal + ", " + symbol);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                handleConflict(nonTerminal, symbol);
                             }
                     else {
                         int i = 1;
@@ -271,11 +263,7 @@ public class Parser {
                             if (parseTable.get(new Pair<>(nonTerminal, symbol)).getFirst().equals("err"))
                                 parseTable.put(new Pair<>(nonTerminal, symbol), new Pair<>(String.join(" ", production), rhsOfProductions.indexOf(production) + 1));
                             else {
-                                try {
-                                    throw new Exception("CONFLICT in the cell: " + nonTerminal + ", " + symbol);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                handleConflict(nonTerminal, symbol);
                             }
                         }
                     }
@@ -284,30 +272,34 @@ public class Parser {
                     Set<String> followSet = follow.get(nonTerminal);
                     for (var symbol : followSet) {
                         if (symbol.equals("epsilon")) {
-                            if (parseTable.get(new Pair<>(nonTerminal, "$")).getFirst().equals("err")) {
+                            Pair<String, String> epsilonPosition = new Pair<>(nonTerminal, "$");
+                            if (parseTable.get(epsilonPosition).getFirst().equals("err")) {
                                 List<String> prod = new ArrayList<>(List.of("epsilon", nonTerminal));
-                                parseTable.put(new Pair<>(nonTerminal, "$"), new Pair<>("epsilon", rhsOfProductions.indexOf(prod) + 1));
+                                parseTable.put(epsilonPosition, new Pair<>("epsilon", rhsOfProductions.indexOf(prod) + 1));
                             } else {
-                                try {
-                                    throw new Exception("CONFLICT in the cell: " + nonTerminal + ", " + symbol);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                handleConflict(nonTerminal, "epsilon");
                             }
-                        } else if (parseTable.get(new Pair<>(nonTerminal, symbol)).getFirst().equals("err")) {
-                            var prod = new ArrayList<>(List.of("epsilon", nonTerminal));
-                            parseTable.put(new Pair<>(nonTerminal, symbol), new Pair<>("epsilon", rhsOfProductions.indexOf(prod) + 1));
                         } else {
-                            try {
-                                throw new Exception("CONFLICT in the cell: " + nonTerminal + ", " + symbol);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            Pair<String, String> position = new Pair<>(nonTerminal, symbol);
+                            if (parseTable.get(position).getFirst().equals("err")) {
+                                List<String> prod = new ArrayList<>(List.of("epsilon", nonTerminal));
+                                parseTable.put(position, new Pair<>("epsilon", rhsOfProductions.indexOf(prod) + 1));
+                            } else {
+                                handleConflict(nonTerminal, symbol);
                             }
                         }
                     }
                 }
             }
         });
+    }
+
+    private void handleConflict(String nonTerminal, String symbol) {
+        try {
+            throw new Exception("CONFLICT in the cell: " + nonTerminal + ", " + symbol);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String parseTableToString() {
