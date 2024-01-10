@@ -1,10 +1,11 @@
-N = { program, declaration_stmt, decllist, declaration, id_declaration, array_declaration, type, constlist, const_declaration, constant, cmpdstmt, expression, int_expression, arithmetic_symbol, string_expression, stmt, simplestmt, structstmt, assignstmt, cmpdassignstmt, iostmt, readstmt, writestmt, ifstmt, whilestmt, forstmt, condition, RELATION }
+N = { program, declaration_stmt, decllist, decl, declaration, id_declaration, array_declaration, type, constlist, const_declaration, constant, term, cmpdstmt, expression, int_expression, arithmetic_symbol, string_expression, stmt, simplestmt, structstmt, assignstmt, equal_and_symbol, cmpdassignstmt, iostmt, readstmt, writestmt, ifstmt, stmt_body, elsestmt, whilestmt, forstmt, condition, RELATION }
 E = { +, -, *, /, <-, ->, >>, <<, ==, !!, >>=, <<=, =+, =-, =*, =/, =, and, or, \, /, ~, ;, :, (, ), {, }, [, ], def, int, string, whether, otherwise, Array, whileLoop, forLoop, const, input, out, identifier, intconstant, stringconstant }
 S = program
 P = {
 program -> { cmpdstmt }
 declaration_stmt -> decllist | constlist
-decllist -> def declaration decllist | epsilon
+decllist -> def decl
+decl -> declaration ; decllist | epsilon
 declaration -> id_declaration | array_declaration
 id_declaration -> identifier : type
 array_declaration -> identifier [ intconstant ] : Array ( type )
@@ -12,6 +13,7 @@ type -> int | string
 constlist -> const const_declaration constlist | epsilon
 const_declaration -> identifier <- constant
 constant -> intconstant | stringconstant
+term -> identifier | constant
 cmpdstmt -> stmt cmpdstmt | epsilon
 expression -> int_expression | string_expression
 int_expression -> intconstant | identifier | int_expression arithmetic_symbol int_expression | ( int_expression arithmetic_symbol int_expression ) | epsilon
@@ -21,13 +23,16 @@ stmt -> declaration_stmt ~ | simplestmt ~ | structstmt
 simplestmt -> assignstmt | iostmt | cmpdassignstmt
 structstmt -> ifstmt | whilestmt | forstmt
 assignstmt -> identifier <- expression
-cmpdassignstmt -> identifier = arithmetic_symbol expression
+equal_and_symbol -> =+ | =- | =* | =/
+cmpdassignstmt -> identifier equal_and_symbol expression
 iostmt -> readstmt | writestmt
-readstmt -> identifier <- input ( )
-writestmt -> identifier -> out ( )
-ifstmt -> whether ( condition ) \ stmt / otherwise stmt
-whilestmt -> whileLoop ( condition ) \ stmt /
-forstmt -> forLoop ( assignstmt ; condition ; assignstmt | cmpdassignstmt ) \ stmt /
+readstmt -> term <- input ( )
+writestmt -> term -> out ( )
+ifstmt -> whether ( condition ) stmt_body otherwise elsestmt
+elsestmt -> otherwise stmt_body | epsilon
+stmt_body -> \ stmt / | stmt
+whilestmt -> whileLoop ( condition ) stmt_body
+forstmt -> forLoop ( assignstmt ; condition ; assignstmt | cmpdassignstmt ) stmt_body
 condition -> expression RELATION expression
-RELATION -> << | <<= | == | !! | >>= | >>
+RELATION -> << | <<= | == | !! | >>= | >> | and | or
 }

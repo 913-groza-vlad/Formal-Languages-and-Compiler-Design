@@ -340,16 +340,15 @@ public class Parser {
         return builder.toString();
     }
 
-    public List<Integer> parseSequence(String sequence) {
+    public List<Integer> parseSequence(List<String> sequence) {
         Stack<String> inputStack = new Stack<>();
         Stack<String> workingStack = new Stack<>();
         List<Integer> output = new ArrayList<>();
 
         // initialize input stack
         inputStack.push("$");
-        String[] sequenceSymbols = sequence.split(" ");
-        for (int i = sequenceSymbols.length - 1; i >= 0; i--) {
-            inputStack.push(sequenceSymbols[i]);
+        for (int i = sequence.size() - 1; i >= 0; i--) {
+            inputStack.push(sequence.get(i));
         }
 
         // initialize working stack

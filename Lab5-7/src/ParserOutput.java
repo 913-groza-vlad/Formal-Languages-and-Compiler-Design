@@ -9,7 +9,7 @@ public class ParserOutput {
     private boolean hasError;
     private List<String> sequenceOfDerivations;
 
-    public ParserOutput(Parser parser, String sequence, String fileName) {
+    public ParserOutput(Parser parser, List<String> sequence, String fileName) {
         this.parser = parser;
         this.productionSequence = parser.parseSequence(sequence);
         this.fileName = fileName;

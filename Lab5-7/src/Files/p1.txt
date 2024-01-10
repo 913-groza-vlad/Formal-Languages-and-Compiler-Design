@@ -1,0 +1,11 @@
+{
+
+def a : int ; b: int ~
+a <- -43~
+b <- 10~
+whether (a >> b)
+  a -> out()~
+otherwise
+  b -> out()~
+
+}
