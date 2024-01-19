@@ -1,0 +1,1552 @@
+Terminals unused in grammar
+
+   '+'
+   '-'
+   '*'
+   '/'
+   OR
+   AND
+
+
+State 51 conflicts: 12 reduce/reduce
+State 111 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: leftCurlyBracket cmpdstmt rightCurlyBracket
+
+    2 declaration_stmt: decllist
+    3                 | constlist
+
+    4 decllist: DEF decl
+
+    5 decl: declaration semicolon decllist
+    6     | /* empty */
+
+    7 declaration: id_declaration
+    8            | array_declaration
+
+    9 id_declaration: IDENTIFIER colon type
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket colon ARRAY leftRoundBracket type rightRoundBracket
+
+   11 type: INT
+   12     | STRING
+
+   13 constlist: CONST const_declaration semicolon constlist
+   14          | /* empty */
+
+   15 const_declaration: IDENTIFIER assign NUMBER_CONST
+   16                  | STRING_CONST
+
+   17 cmpdstmt: stmt cmpdstmt
+   18         | /* empty */
+
+   19 int_term: NUMBER_CONST
+   20         | IDENTIFIER
+
+   21 string_term: STRING_CONST
+   22            | IDENTIFIER
+
+   23 expression: int_expression
+   24           | string_expression
+
+   25 int_expression: int_term sign_and_expression
+   26               | leftRoundBracket int_term sign_and_expression rightRoundBracket
+
+   27 sign_and_expression: sign int_expression
+   28                    | /* empty */
+
+   29 sign: plus
+   30     | minus
+   31     | multiply
+   32     | division
+
+   33 string_expression: string_term plus_and_string_expression
+
+   34 plus_and_string_expression: plus string_expression
+   35                           | /* empty */
+
+   36 stmt: declaration_stmt endline
+   37     | simplestmt endline
+   38     | structstmt
+
+   39 simplestmt: assignstmt
+   40           | iostmt
+   41           | cmpdassignstmt
+
+   42 structstmt: ifstmt
+   43           | whilestmt
+   44           | forstmt
+
+   45 assignstmt: IDENTIFIER assign expression
+
+   46 cmpdassignstmt: IDENTIFIER equalAndSign expression
+
+   47 equalAndSign: equalPlus
+   48             | equalMinus
+   49             | equalMultiply
+   50             | equalDivision
+
+   51 iostmt: readstmt
+   52       | writestmt
+
+   53 readstmt: IDENTIFIER assign INPUT leftRoundBracket rightRoundBracket
+
+   54 writestmt: IDENTIFIER assign2 OUT leftRoundBracket rightRoundBracket
+
+   55 ifstmt: WHETHER leftRoundBracket condition rightRoundBracket stmt_body elsestmt
+
+   56 stmt_body: leftCurlyBracket stmt rightCurlyBracket
+   57          | stmt
+
+   58 elsestmt: OTHERWISE stmt_body
+   59         | /* empty */
+
+   60 whilestmt: WHILE leftRoundBracket condition rightRoundBracket stmt_body
+
+   61 forstmt: FOR leftRoundBracket forstmt_parts rightRoundBracket stmt_body
+
+   62 forstmt_parts: assignstmt semicolon condition semicolon assignment
+   63              | /* empty */
+
+   64 assignment: assignstmt
+   65           | cmpdassignstmt
+   66           | /* empty */
+
+   67 condition: expression RELATION expression
+
+   68 RELATION: less
+   69         | lessOrEqual
+   70         | equal
+   71         | different
+   72         | moreOrEqual
+   73         | more
+   74         | and
+   75         | or
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'*' (42)
+'+' (43)
+'-' (45)
+'/' (47)
+error (256)
+DEF (258) 4
+INT (259) 11
+STRING (260) 12
+WHETHER (261) 55
+OTHERWISE (262) 58
+ARRAY (263) 10
+WHILE (264) 60
+FOR (265) 61
+CONST (266) 13
+INPUT (267) 53
+OUT (268) 54
+plus (269) 29 34
+minus (270) 30
+multiply (271) 31
+division (272) 32
+assign (273) 15 45 53
+assign2 (274) 54
+more (275) 73
+less (276) 68
+equal (277) 70
+different (278) 71
+moreOrEqual (279) 72
+lessOrEqual (280) 69
+equalPlus (281) 47
+equalMinus (282) 48
+equalMultiply (283) 49
+equalDivision (284) 50
+and (285) 74
+or (286) 75
+endline (287) 36 37
+semicolon (288) 5 13 62
+colon (289) 9 10
+leftRoundBracket (290) 10 26 53 54 55 60 61
+rightRoundBracket (291) 10 26 53 54 55 60 61
+leftCurlyBracket (292) 1 56
+rightCurlyBracket (293) 1 56
+leftSquareBracket (294) 10
+rightSquareBracket (295) 10
+IDENTIFIER (296) 9 10 15 20 22 45 46 53 54
+NUMBER_CONST (297) 10 15 19
+STRING_CONST (298) 16 21
+OR (299)
+AND (300)
+
+
+Nonterminals, with rules where they appear
+
+$accept (50)
+    on left: 0
+program (51)
+    on left: 1, on right: 0
+declaration_stmt (52)
+    on left: 2 3, on right: 36
+decllist (53)
+    on left: 4, on right: 2 5
+decl (54)
+    on left: 5 6, on right: 4
+declaration (55)
+    on left: 7 8, on right: 5
+id_declaration (56)
+    on left: 9, on right: 7
+array_declaration (57)
+    on left: 10, on right: 8
+type (58)
+    on left: 11 12, on right: 9 10
+constlist (59)
+    on left: 13 14, on right: 3 13
+const_declaration (60)
+    on left: 15 16, on right: 13
+cmpdstmt (61)
+    on left: 17 18, on right: 1 17
+int_term (62)
+    on left: 19 20, on right: 25 26
+string_term (63)
+    on left: 21 22, on right: 33
+expression (64)
+    on left: 23 24, on right: 45 46 67
+int_expression (65)
+    on left: 25 26, on right: 23 27
+sign_and_expression (66)
+    on left: 27 28, on right: 25 26
+sign (67)
+    on left: 29 30 31 32, on right: 27
+string_expression (68)
+    on left: 33, on right: 24 34
+plus_and_string_expression (69)
+    on left: 34 35, on right: 33
+stmt (70)
+    on left: 36 37 38, on right: 17 56 57
+simplestmt (71)
+    on left: 39 40 41, on right: 37
+structstmt (72)
+    on left: 42 43 44, on right: 38
+assignstmt (73)
+    on left: 45, on right: 39 62 64
+cmpdassignstmt (74)
+    on left: 46, on right: 41 65
+equalAndSign (75)
+    on left: 47 48 49 50, on right: 46
+iostmt (76)
+    on left: 51 52, on right: 40
+readstmt (77)
+    on left: 53, on right: 51
+writestmt (78)
+    on left: 54, on right: 52
+ifstmt (79)
+    on left: 55, on right: 42
+stmt_body (80)
+    on left: 56 57, on right: 55 58 60 61
+elsestmt (81)
+    on left: 58 59, on right: 55
+whilestmt (82)
+    on left: 60, on right: 43
+forstmt (83)
+    on left: 61, on right: 44
+forstmt_parts (84)
+    on left: 62 63, on right: 61
+assignment (85)
+    on left: 64 65 66, on right: 62
+condition (86)
+    on left: 67, on right: 55 60 62
+RELATION (87)
+    on left: 68 69 70 71 72 73 74 75, on right: 67
+
+
+state 0
+
+    0 $accept: . program $end
+
+    leftCurlyBracket  shift, and go to state 1
+
+    program  go to state 2
+
+
+state 1
+
+    1 program: leftCurlyBracket . cmpdstmt rightCurlyBracket
+
+    DEF         shift, and go to state 3
+    WHETHER     shift, and go to state 4
+    WHILE       shift, and go to state 5
+    FOR         shift, and go to state 6
+    CONST       shift, and go to state 7
+    IDENTIFIER  shift, and go to state 8
+
+    rightCurlyBracket  reduce using rule 18 (cmpdstmt)
+    $default           reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    cmpdstmt          go to state 12
+    stmt              go to state 13
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 24
+
+
+state 3
+
+    4 decllist: DEF . decl
+
+    IDENTIFIER  shift, and go to state 25
+
+    $default  reduce using rule 6 (decl)
+
+    decl               go to state 26
+    declaration        go to state 27
+    id_declaration     go to state 28
+    array_declaration  go to state 29
+
+
+state 4
+
+   55 ifstmt: WHETHER . leftRoundBracket condition rightRoundBracket stmt_body elsestmt
+
+    leftRoundBracket  shift, and go to state 30
+
+
+state 5
+
+   60 whilestmt: WHILE . leftRoundBracket condition rightRoundBracket stmt_body
+
+    leftRoundBracket  shift, and go to state 31
+
+
+state 6
+
+   61 forstmt: FOR . leftRoundBracket forstmt_parts rightRoundBracket stmt_body
+
+    leftRoundBracket  shift, and go to state 32
+
+
+state 7
+
+   13 constlist: CONST . const_declaration semicolon constlist
+
+    IDENTIFIER    shift, and go to state 33
+    STRING_CONST  shift, and go to state 34
+
+    const_declaration  go to state 35
+
+
+state 8
+
+   45 assignstmt: IDENTIFIER . assign expression
+   46 cmpdassignstmt: IDENTIFIER . equalAndSign expression
+   53 readstmt: IDENTIFIER . assign INPUT leftRoundBracket rightRoundBracket
+   54 writestmt: IDENTIFIER . assign2 OUT leftRoundBracket rightRoundBracket
+
+    assign         shift, and go to state 36
+    assign2        shift, and go to state 37
+    equalPlus      shift, and go to state 38
+    equalMinus     shift, and go to state 39
+    equalMultiply  shift, and go to state 40
+    equalDivision  shift, and go to state 41
+
+    equalAndSign  go to state 42
+
+
+state 9
+
+   36 stmt: declaration_stmt . endline
+
+    endline  shift, and go to state 43
+
+
+state 10
+
+    2 declaration_stmt: decllist .
+
+    $default  reduce using rule 2 (declaration_stmt)
+
+
+state 11
+
+    3 declaration_stmt: constlist .
+
+    $default  reduce using rule 3 (declaration_stmt)
+
+
+state 12
+
+    1 program: leftCurlyBracket cmpdstmt . rightCurlyBracket
+
+    rightCurlyBracket  shift, and go to state 44
+
+
+state 13
+
+   17 cmpdstmt: stmt . cmpdstmt
+
+    DEF         shift, and go to state 3
+    WHETHER     shift, and go to state 4
+    WHILE       shift, and go to state 5
+    FOR         shift, and go to state 6
+    CONST       shift, and go to state 7
+    IDENTIFIER  shift, and go to state 8
+
+    rightCurlyBracket  reduce using rule 18 (cmpdstmt)
+    $default           reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    cmpdstmt          go to state 45
+    stmt              go to state 13
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 14
+
+   37 stmt: simplestmt . endline
+
+    endline  shift, and go to state 46
+
+
+state 15
+
+   38 stmt: structstmt .
+
+    $default  reduce using rule 38 (stmt)
+
+
+state 16
+
+   39 simplestmt: assignstmt .
+
+    $default  reduce using rule 39 (simplestmt)
+
+
+state 17
+
+   41 simplestmt: cmpdassignstmt .
+
+    $default  reduce using rule 41 (simplestmt)
+
+
+state 18
+
+   40 simplestmt: iostmt .
+
+    $default  reduce using rule 40 (simplestmt)
+
+
+state 19
+
+   51 iostmt: readstmt .
+
+    $default  reduce using rule 51 (iostmt)
+
+
+state 20
+
+   52 iostmt: writestmt .
+
+    $default  reduce using rule 52 (iostmt)
+
+
+state 21
+
+   42 structstmt: ifstmt .
+
+    $default  reduce using rule 42 (structstmt)
+
+
+state 22
+
+   43 structstmt: whilestmt .
+
+    $default  reduce using rule 43 (structstmt)
+
+
+state 23
+
+   44 structstmt: forstmt .
+
+    $default  reduce using rule 44 (structstmt)
+
+
+state 24
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 25
+
+    9 id_declaration: IDENTIFIER . colon type
+   10 array_declaration: IDENTIFIER . leftSquareBracket NUMBER_CONST rightSquareBracket colon ARRAY leftRoundBracket type rightRoundBracket
+
+    colon              shift, and go to state 47
+    leftSquareBracket  shift, and go to state 48
+
+
+state 26
+
+    4 decllist: DEF decl .
+
+    $default  reduce using rule 4 (decllist)
+
+
+state 27
+
+    5 decl: declaration . semicolon decllist
+
+    semicolon  shift, and go to state 49
+
+
+state 28
+
+    7 declaration: id_declaration .
+
+    $default  reduce using rule 7 (declaration)
+
+
+state 29
+
+    8 declaration: array_declaration .
+
+    $default  reduce using rule 8 (declaration)
+
+
+state 30
+
+   55 ifstmt: WHETHER leftRoundBracket . condition rightRoundBracket stmt_body elsestmt
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 56
+    int_expression     go to state 57
+    string_expression  go to state 58
+    condition          go to state 59
+
+
+state 31
+
+   60 whilestmt: WHILE leftRoundBracket . condition rightRoundBracket stmt_body
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 56
+    int_expression     go to state 57
+    string_expression  go to state 58
+    condition          go to state 60
+
+
+state 32
+
+   61 forstmt: FOR leftRoundBracket . forstmt_parts rightRoundBracket stmt_body
+
+    IDENTIFIER  shift, and go to state 61
+
+    $default  reduce using rule 63 (forstmt_parts)
+
+    assignstmt     go to state 62
+    forstmt_parts  go to state 63
+
+
+state 33
+
+   15 const_declaration: IDENTIFIER . assign NUMBER_CONST
+
+    assign  shift, and go to state 64
+
+
+state 34
+
+   16 const_declaration: STRING_CONST .
+
+    $default  reduce using rule 16 (const_declaration)
+
+
+state 35
+
+   13 constlist: CONST const_declaration . semicolon constlist
+
+    semicolon  shift, and go to state 65
+
+
+state 36
+
+   45 assignstmt: IDENTIFIER assign . expression
+   53 readstmt: IDENTIFIER assign . INPUT leftRoundBracket rightRoundBracket
+
+    INPUT             shift, and go to state 66
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 67
+    int_expression     go to state 57
+    string_expression  go to state 58
+
+
+state 37
+
+   54 writestmt: IDENTIFIER assign2 . OUT leftRoundBracket rightRoundBracket
+
+    OUT  shift, and go to state 68
+
+
+state 38
+
+   47 equalAndSign: equalPlus .
+
+    $default  reduce using rule 47 (equalAndSign)
+
+
+state 39
+
+   48 equalAndSign: equalMinus .
+
+    $default  reduce using rule 48 (equalAndSign)
+
+
+state 40
+
+   49 equalAndSign: equalMultiply .
+
+    $default  reduce using rule 49 (equalAndSign)
+
+
+state 41
+
+   50 equalAndSign: equalDivision .
+
+    $default  reduce using rule 50 (equalAndSign)
+
+
+state 42
+
+   46 cmpdassignstmt: IDENTIFIER equalAndSign . expression
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 69
+    int_expression     go to state 57
+    string_expression  go to state 58
+
+
+state 43
+
+   36 stmt: declaration_stmt endline .
+
+    $default  reduce using rule 36 (stmt)
+
+
+state 44
+
+    1 program: leftCurlyBracket cmpdstmt rightCurlyBracket .
+
+    $default  reduce using rule 1 (program)
+
+
+state 45
+
+   17 cmpdstmt: stmt cmpdstmt .
+
+    $default  reduce using rule 17 (cmpdstmt)
+
+
+state 46
+
+   37 stmt: simplestmt endline .
+
+    $default  reduce using rule 37 (stmt)
+
+
+state 47
+
+    9 id_declaration: IDENTIFIER colon . type
+
+    INT     shift, and go to state 70
+    STRING  shift, and go to state 71
+
+    type  go to state 72
+
+
+state 48
+
+   10 array_declaration: IDENTIFIER leftSquareBracket . NUMBER_CONST rightSquareBracket colon ARRAY leftRoundBracket type rightRoundBracket
+
+    NUMBER_CONST  shift, and go to state 73
+
+
+state 49
+
+    5 decl: declaration semicolon . decllist
+
+    DEF  shift, and go to state 3
+
+    decllist  go to state 74
+
+
+state 50
+
+   26 int_expression: leftRoundBracket . int_term sign_and_expression rightRoundBracket
+
+    IDENTIFIER    shift, and go to state 75
+    NUMBER_CONST  shift, and go to state 52
+
+    int_term  go to state 76
+
+
+state 51
+
+   20 int_term: IDENTIFIER .
+   22 string_term: IDENTIFIER .
+
+    plus               reduce using rule 20 (int_term)
+    plus               [reduce using rule 22 (string_term)]
+    more               reduce using rule 20 (int_term)
+    more               [reduce using rule 22 (string_term)]
+    less               reduce using rule 20 (int_term)
+    less               [reduce using rule 22 (string_term)]
+    equal              reduce using rule 20 (int_term)
+    equal              [reduce using rule 22 (string_term)]
+    different          reduce using rule 20 (int_term)
+    different          [reduce using rule 22 (string_term)]
+    moreOrEqual        reduce using rule 20 (int_term)
+    moreOrEqual        [reduce using rule 22 (string_term)]
+    lessOrEqual        reduce using rule 20 (int_term)
+    lessOrEqual        [reduce using rule 22 (string_term)]
+    and                reduce using rule 20 (int_term)
+    and                [reduce using rule 22 (string_term)]
+    or                 reduce using rule 20 (int_term)
+    or                 [reduce using rule 22 (string_term)]
+    endline            reduce using rule 20 (int_term)
+    endline            [reduce using rule 22 (string_term)]
+    semicolon          reduce using rule 20 (int_term)
+    semicolon          [reduce using rule 22 (string_term)]
+    rightRoundBracket  reduce using rule 20 (int_term)
+    rightRoundBracket  [reduce using rule 22 (string_term)]
+    $default           reduce using rule 20 (int_term)
+
+
+state 52
+
+   19 int_term: NUMBER_CONST .
+
+    $default  reduce using rule 19 (int_term)
+
+
+state 53
+
+   21 string_term: STRING_CONST .
+
+    $default  reduce using rule 21 (string_term)
+
+
+state 54
+
+   25 int_expression: int_term . sign_and_expression
+
+    plus      shift, and go to state 77
+    minus     shift, and go to state 78
+    multiply  shift, and go to state 79
+    division  shift, and go to state 80
+
+    $default  reduce using rule 28 (sign_and_expression)
+
+    sign_and_expression  go to state 81
+    sign                 go to state 82
+
+
+state 55
+
+   33 string_expression: string_term . plus_and_string_expression
+
+    plus  shift, and go to state 83
+
+    $default  reduce using rule 35 (plus_and_string_expression)
+
+    plus_and_string_expression  go to state 84
+
+
+state 56
+
+   67 condition: expression . RELATION expression
+
+    more         shift, and go to state 85
+    less         shift, and go to state 86
+    equal        shift, and go to state 87
+    different    shift, and go to state 88
+    moreOrEqual  shift, and go to state 89
+    lessOrEqual  shift, and go to state 90
+    and          shift, and go to state 91
+    or           shift, and go to state 92
+
+    RELATION  go to state 93
+
+
+state 57
+
+   23 expression: int_expression .
+
+    $default  reduce using rule 23 (expression)
+
+
+state 58
+
+   24 expression: string_expression .
+
+    $default  reduce using rule 24 (expression)
+
+
+state 59
+
+   55 ifstmt: WHETHER leftRoundBracket condition . rightRoundBracket stmt_body elsestmt
+
+    rightRoundBracket  shift, and go to state 94
+
+
+state 60
+
+   60 whilestmt: WHILE leftRoundBracket condition . rightRoundBracket stmt_body
+
+    rightRoundBracket  shift, and go to state 95
+
+
+state 61
+
+   45 assignstmt: IDENTIFIER . assign expression
+
+    assign  shift, and go to state 96
+
+
+state 62
+
+   62 forstmt_parts: assignstmt . semicolon condition semicolon assignment
+
+    semicolon  shift, and go to state 97
+
+
+state 63
+
+   61 forstmt: FOR leftRoundBracket forstmt_parts . rightRoundBracket stmt_body
+
+    rightRoundBracket  shift, and go to state 98
+
+
+state 64
+
+   15 const_declaration: IDENTIFIER assign . NUMBER_CONST
+
+    NUMBER_CONST  shift, and go to state 99
+
+
+state 65
+
+   13 constlist: CONST const_declaration semicolon . constlist
+
+    CONST  shift, and go to state 7
+
+    $default  reduce using rule 14 (constlist)
+
+    constlist  go to state 100
+
+
+state 66
+
+   53 readstmt: IDENTIFIER assign INPUT . leftRoundBracket rightRoundBracket
+
+    leftRoundBracket  shift, and go to state 101
+
+
+state 67
+
+   45 assignstmt: IDENTIFIER assign expression .
+
+    $default  reduce using rule 45 (assignstmt)
+
+
+state 68
+
+   54 writestmt: IDENTIFIER assign2 OUT . leftRoundBracket rightRoundBracket
+
+    leftRoundBracket  shift, and go to state 102
+
+
+state 69
+
+   46 cmpdassignstmt: IDENTIFIER equalAndSign expression .
+
+    $default  reduce using rule 46 (cmpdassignstmt)
+
+
+state 70
+
+   11 type: INT .
+
+    $default  reduce using rule 11 (type)
+
+
+state 71
+
+   12 type: STRING .
+
+    $default  reduce using rule 12 (type)
+
+
+state 72
+
+    9 id_declaration: IDENTIFIER colon type .
+
+    $default  reduce using rule 9 (id_declaration)
+
+
+state 73
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST . rightSquareBracket colon ARRAY leftRoundBracket type rightRoundBracket
+
+    rightSquareBracket  shift, and go to state 103
+
+
+state 74
+
+    5 decl: declaration semicolon decllist .
+
+    $default  reduce using rule 5 (decl)
+
+
+state 75
+
+   20 int_term: IDENTIFIER .
+
+    $default  reduce using rule 20 (int_term)
+
+
+state 76
+
+   26 int_expression: leftRoundBracket int_term . sign_and_expression rightRoundBracket
+
+    plus      shift, and go to state 77
+    minus     shift, and go to state 78
+    multiply  shift, and go to state 79
+    division  shift, and go to state 80
+
+    $default  reduce using rule 28 (sign_and_expression)
+
+    sign_and_expression  go to state 104
+    sign                 go to state 82
+
+
+state 77
+
+   29 sign: plus .
+
+    $default  reduce using rule 29 (sign)
+
+
+state 78
+
+   30 sign: minus .
+
+    $default  reduce using rule 30 (sign)
+
+
+state 79
+
+   31 sign: multiply .
+
+    $default  reduce using rule 31 (sign)
+
+
+state 80
+
+   32 sign: division .
+
+    $default  reduce using rule 32 (sign)
+
+
+state 81
+
+   25 int_expression: int_term sign_and_expression .
+
+    $default  reduce using rule 25 (int_expression)
+
+
+state 82
+
+   27 sign_and_expression: sign . int_expression
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 75
+    NUMBER_CONST      shift, and go to state 52
+
+    int_term        go to state 54
+    int_expression  go to state 105
+
+
+state 83
+
+   34 plus_and_string_expression: plus . string_expression
+
+    IDENTIFIER    shift, and go to state 106
+    STRING_CONST  shift, and go to state 53
+
+    string_term        go to state 55
+    string_expression  go to state 107
+
+
+state 84
+
+   33 string_expression: string_term plus_and_string_expression .
+
+    $default  reduce using rule 33 (string_expression)
+
+
+state 85
+
+   73 RELATION: more .
+
+    $default  reduce using rule 73 (RELATION)
+
+
+state 86
+
+   68 RELATION: less .
+
+    $default  reduce using rule 68 (RELATION)
+
+
+state 87
+
+   70 RELATION: equal .
+
+    $default  reduce using rule 70 (RELATION)
+
+
+state 88
+
+   71 RELATION: different .
+
+    $default  reduce using rule 71 (RELATION)
+
+
+state 89
+
+   72 RELATION: moreOrEqual .
+
+    $default  reduce using rule 72 (RELATION)
+
+
+state 90
+
+   69 RELATION: lessOrEqual .
+
+    $default  reduce using rule 69 (RELATION)
+
+
+state 91
+
+   74 RELATION: and .
+
+    $default  reduce using rule 74 (RELATION)
+
+
+state 92
+
+   75 RELATION: or .
+
+    $default  reduce using rule 75 (RELATION)
+
+
+state 93
+
+   67 condition: expression RELATION . expression
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 108
+    int_expression     go to state 57
+    string_expression  go to state 58
+
+
+state 94
+
+   55 ifstmt: WHETHER leftRoundBracket condition rightRoundBracket . stmt_body elsestmt
+
+    DEF               shift, and go to state 3
+    WHETHER           shift, and go to state 4
+    WHILE             shift, and go to state 5
+    FOR               shift, and go to state 6
+    CONST             shift, and go to state 7
+    leftCurlyBracket  shift, and go to state 109
+    IDENTIFIER        shift, and go to state 8
+
+    $default  reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    stmt              go to state 110
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    stmt_body         go to state 111
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 95
+
+   60 whilestmt: WHILE leftRoundBracket condition rightRoundBracket . stmt_body
+
+    DEF               shift, and go to state 3
+    WHETHER           shift, and go to state 4
+    WHILE             shift, and go to state 5
+    FOR               shift, and go to state 6
+    CONST             shift, and go to state 7
+    leftCurlyBracket  shift, and go to state 109
+    IDENTIFIER        shift, and go to state 8
+
+    $default  reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    stmt              go to state 110
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    stmt_body         go to state 112
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 96
+
+   45 assignstmt: IDENTIFIER assign . expression
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 67
+    int_expression     go to state 57
+    string_expression  go to state 58
+
+
+state 97
+
+   62 forstmt_parts: assignstmt semicolon . condition semicolon assignment
+
+    leftRoundBracket  shift, and go to state 50
+    IDENTIFIER        shift, and go to state 51
+    NUMBER_CONST      shift, and go to state 52
+    STRING_CONST      shift, and go to state 53
+
+    int_term           go to state 54
+    string_term        go to state 55
+    expression         go to state 56
+    int_expression     go to state 57
+    string_expression  go to state 58
+    condition          go to state 113
+
+
+state 98
+
+   61 forstmt: FOR leftRoundBracket forstmt_parts rightRoundBracket . stmt_body
+
+    DEF               shift, and go to state 3
+    WHETHER           shift, and go to state 4
+    WHILE             shift, and go to state 5
+    FOR               shift, and go to state 6
+    CONST             shift, and go to state 7
+    leftCurlyBracket  shift, and go to state 109
+    IDENTIFIER        shift, and go to state 8
+
+    $default  reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    stmt              go to state 110
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    stmt_body         go to state 114
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 99
+
+   15 const_declaration: IDENTIFIER assign NUMBER_CONST .
+
+    $default  reduce using rule 15 (const_declaration)
+
+
+state 100
+
+   13 constlist: CONST const_declaration semicolon constlist .
+
+    $default  reduce using rule 13 (constlist)
+
+
+state 101
+
+   53 readstmt: IDENTIFIER assign INPUT leftRoundBracket . rightRoundBracket
+
+    rightRoundBracket  shift, and go to state 115
+
+
+state 102
+
+   54 writestmt: IDENTIFIER assign2 OUT leftRoundBracket . rightRoundBracket
+
+    rightRoundBracket  shift, and go to state 116
+
+
+state 103
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket . colon ARRAY leftRoundBracket type rightRoundBracket
+
+    colon  shift, and go to state 117
+
+
+state 104
+
+   26 int_expression: leftRoundBracket int_term sign_and_expression . rightRoundBracket
+
+    rightRoundBracket  shift, and go to state 118
+
+
+state 105
+
+   27 sign_and_expression: sign int_expression .
+
+    $default  reduce using rule 27 (sign_and_expression)
+
+
+state 106
+
+   22 string_term: IDENTIFIER .
+
+    $default  reduce using rule 22 (string_term)
+
+
+state 107
+
+   34 plus_and_string_expression: plus string_expression .
+
+    $default  reduce using rule 34 (plus_and_string_expression)
+
+
+state 108
+
+   67 condition: expression RELATION expression .
+
+    $default  reduce using rule 67 (condition)
+
+
+state 109
+
+   56 stmt_body: leftCurlyBracket . stmt rightCurlyBracket
+
+    DEF         shift, and go to state 3
+    WHETHER     shift, and go to state 4
+    WHILE       shift, and go to state 5
+    FOR         shift, and go to state 6
+    CONST       shift, and go to state 7
+    IDENTIFIER  shift, and go to state 8
+
+    $default  reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    stmt              go to state 119
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 110
+
+   57 stmt_body: stmt .
+
+    $default  reduce using rule 57 (stmt_body)
+
+
+state 111
+
+   55 ifstmt: WHETHER leftRoundBracket condition rightRoundBracket stmt_body . elsestmt
+
+    OTHERWISE  shift, and go to state 120
+
+    OTHERWISE  [reduce using rule 59 (elsestmt)]
+    $default   reduce using rule 59 (elsestmt)
+
+    elsestmt  go to state 121
+
+
+state 112
+
+   60 whilestmt: WHILE leftRoundBracket condition rightRoundBracket stmt_body .
+
+    $default  reduce using rule 60 (whilestmt)
+
+
+state 113
+
+   62 forstmt_parts: assignstmt semicolon condition . semicolon assignment
+
+    semicolon  shift, and go to state 122
+
+
+state 114
+
+   61 forstmt: FOR leftRoundBracket forstmt_parts rightRoundBracket stmt_body .
+
+    $default  reduce using rule 61 (forstmt)
+
+
+state 115
+
+   53 readstmt: IDENTIFIER assign INPUT leftRoundBracket rightRoundBracket .
+
+    $default  reduce using rule 53 (readstmt)
+
+
+state 116
+
+   54 writestmt: IDENTIFIER assign2 OUT leftRoundBracket rightRoundBracket .
+
+    $default  reduce using rule 54 (writestmt)
+
+
+state 117
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket colon . ARRAY leftRoundBracket type rightRoundBracket
+
+    ARRAY  shift, and go to state 123
+
+
+state 118
+
+   26 int_expression: leftRoundBracket int_term sign_and_expression rightRoundBracket .
+
+    $default  reduce using rule 26 (int_expression)
+
+
+state 119
+
+   56 stmt_body: leftCurlyBracket stmt . rightCurlyBracket
+
+    rightCurlyBracket  shift, and go to state 124
+
+
+state 120
+
+   58 elsestmt: OTHERWISE . stmt_body
+
+    DEF               shift, and go to state 3
+    WHETHER           shift, and go to state 4
+    WHILE             shift, and go to state 5
+    FOR               shift, and go to state 6
+    CONST             shift, and go to state 7
+    leftCurlyBracket  shift, and go to state 109
+    IDENTIFIER        shift, and go to state 8
+
+    $default  reduce using rule 14 (constlist)
+
+    declaration_stmt  go to state 9
+    decllist          go to state 10
+    constlist         go to state 11
+    stmt              go to state 110
+    simplestmt        go to state 14
+    structstmt        go to state 15
+    assignstmt        go to state 16
+    cmpdassignstmt    go to state 17
+    iostmt            go to state 18
+    readstmt          go to state 19
+    writestmt         go to state 20
+    ifstmt            go to state 21
+    stmt_body         go to state 125
+    whilestmt         go to state 22
+    forstmt           go to state 23
+
+
+state 121
+
+   55 ifstmt: WHETHER leftRoundBracket condition rightRoundBracket stmt_body elsestmt .
+
+    $default  reduce using rule 55 (ifstmt)
+
+
+state 122
+
+   62 forstmt_parts: assignstmt semicolon condition semicolon . assignment
+
+    IDENTIFIER  shift, and go to state 126
+
+    $default  reduce using rule 66 (assignment)
+
+    assignstmt      go to state 127
+    cmpdassignstmt  go to state 128
+    assignment      go to state 129
+
+
+state 123
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket colon ARRAY . leftRoundBracket type rightRoundBracket
+
+    leftRoundBracket  shift, and go to state 130
+
+
+state 124
+
+   56 stmt_body: leftCurlyBracket stmt rightCurlyBracket .
+
+    $default  reduce using rule 56 (stmt_body)
+
+
+state 125
+
+   58 elsestmt: OTHERWISE stmt_body .
+
+    $default  reduce using rule 58 (elsestmt)
+
+
+state 126
+
+   45 assignstmt: IDENTIFIER . assign expression
+   46 cmpdassignstmt: IDENTIFIER . equalAndSign expression
+
+    assign         shift, and go to state 96
+    equalPlus      shift, and go to state 38
+    equalMinus     shift, and go to state 39
+    equalMultiply  shift, and go to state 40
+    equalDivision  shift, and go to state 41
+
+    equalAndSign  go to state 42
+
+
+state 127
+
+   64 assignment: assignstmt .
+
+    $default  reduce using rule 64 (assignment)
+
+
+state 128
+
+   65 assignment: cmpdassignstmt .
+
+    $default  reduce using rule 65 (assignment)
+
+
+state 129
+
+   62 forstmt_parts: assignstmt semicolon condition semicolon assignment .
+
+    $default  reduce using rule 62 (forstmt_parts)
+
+
+state 130
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket colon ARRAY leftRoundBracket . type rightRoundBracket
+
+    INT     shift, and go to state 70
+    STRING  shift, and go to state 71
+
+    type  go to state 131
+
+
+state 131
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket colon ARRAY leftRoundBracket type . rightRoundBracket
+
+    rightRoundBracket  shift, and go to state 132
+
+
+state 132
+
+   10 array_declaration: IDENTIFIER leftSquareBracket NUMBER_CONST rightSquareBracket colon ARRAY leftRoundBracket type rightRoundBracket .
+
+    $default  reduce using rule 10 (array_declaration)
